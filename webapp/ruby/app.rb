@@ -8,7 +8,7 @@ require 'estackprof'
 module Isuconp
   class App < Sinatra::Base
     # TODO: 終了間際にenabledをfalseにする
-    use Estackprof::Middleware, enabled: false, mode: :cpu, interval: 1000, save_every: 30, raw: true
+    use Estackprof::Middleware, enabled: true, mode: :cpu, interval: 1000, save_every: 30, raw: true
 
     use Rack::Session::Dalli, autofix_keys: true, secret: ENV['ISUCONP_SESSION_SECRET'] || 'sendagaya', memcache_server: ENV['ISUCONP_MEMCACHED_ADDRESS'] || 'localhost:11211'
     use Rack::Flash
