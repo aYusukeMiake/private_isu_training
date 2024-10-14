@@ -1,10 +1,9 @@
 # 変数定義(競技開始時に変更)----------------------
-# 例として、ISUCON12のときの設定にしてある
-SERVICE_NAME=isuports.service
+SERVICE_NAME=isu-ruby.service 
 
-DB_NAME=isuports
-DB_ROOT_USER=root
-DB_ROOT_PASSWORD=root
+DB_NAME=isuconp
+DB_ROOT_USER=isuconp
+DB_ROOT_PASSWORD=isuconp
 
 RUBY_APP_FILE_NAME=app.rb
 RUBY_WORKING_PATH=/home/isucon/webapp/ruby
