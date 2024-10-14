@@ -1,20 +1,9 @@
-#
-# The MySQL database server configuration file.
-#
-# One can use all long options that the program supports.
-# Run program with --help to get a list of available options and with
-# --print-defaults to see which it would actually understand and use.
-#
-# For explanations see
-# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
-
-# Here is entries for some specific programs
-# The following values assume you have at least 32M ram
+# mysqlの設定
+# /etc/mysql/mysql.conf.d/mysqld.cnf に記載する。
+# デフォルトだと大体エラーログを保存している。
+# TODO: ログを終了間際では出さないようする(特にslow_query_logとlong_query_log)
 
 [mysqld]
-#
-# * Basic Settings
-#
 user		= mysql
 # pid-file	= /var/run/mysqld/mysqld.pid
 # socket	= /var/run/mysqld/mysqld.sock
@@ -22,14 +11,20 @@ user		= mysql
 # datadir	= /var/lib/mysql
 
 
-# If MySQL is running as a replication slave, this should be
-# changed. Ref https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_tmpdir
-# tmpdir		= /tmp
-#
-# Instead of skip-networking the default is now to listen only on
-# localhost which is more compatible and is not less secure.
-bind-address		= 127.0.0.1
+# --------------------------------基本設定--------------------------------
+# 接続を受け付けるアドレス(複数台利用する場合は必須の設定)
+bind-address = 127.0.0.1
+# MySQL Xプロトコルの接続を受け付けるアドレス。
 mysqlx-bind-address	= 127.0.0.1
+# -----------------------------------------------------------------------
+
+# ------------------あまり褒められた設定ではない基本設定------------------
+# クライアントが接続する際に名前解決を無効にする。バグる可能性があるのでコメントアウトしている。
+# skip-name-resolve
+# 少しでも速くするためにbinlogを止める。もし、消す場合は代わりにmax_binlog_size = 100Mを設定する。
+disable-log-bin
+# -----------------------------------------------------------------------
+
 #
 # * Fine Tuning
 #
