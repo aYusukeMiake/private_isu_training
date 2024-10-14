@@ -5,11 +5,6 @@
 
 [mysqld]
 user		= mysql
-# pid-file	= /var/run/mysqld/mysqld.pid
-# socket	= /var/run/mysqld/mysqld.sock
-# port		= 3306
-# datadir	= /var/lib/mysql
-
 
 # --------------------------------基本設定--------------------------------
 # 接続を受け付けるアドレス(複数台利用する場合は必須の設定)
@@ -25,49 +20,70 @@ mysqlx-bind-address	= 127.0.0.1
 disable-log-bin
 # -----------------------------------------------------------------------
 
-#
-# * Fine Tuning
-#
-key_buffer_size		= 16M
-# max_allowed_packet	= 64M
-# thread_stack		= 256K
+# ------------あまり変える必要のない基本設定(デフォルト値から変える場合はコメントアウトして設定する必要あり)------------
+# プロセスIDを保存するファイルのパス(デフォルト値から変える場合は変更する必要あり)
+# pid-file = /var/run/mysqld/mysqld.pid
+# MySQLが利用するソケットファイルのパス
+# socket = /var/run/mysqld/mysqld.sock
+# MySQLが待ち受けるポート番号
+# port = 3306
+# データベースのデータが保存されるディレクトリ
+# datadir	= /var/lib/mysql
+# -------------------------------------------------------------------------------------------------------
 
-# thread_cache_size       = -1
-
-# This replaces the startup script and checks MyISAM tables if needed
-# the first time they are touched
-myisam-recover-options  = BACKUP
-
-# max_connections        = 151
-
-# table_open_cache       = 4000
-
-#
-# * Logging and Replication
-#
-# Both location gets rotated by the cronjob.
-#
-# Log all queries
-# Be aware that this log type is a performance killer.
-# general_log_file        = /var/log/mysql/query.log
-# general_log             = 1
-#
-# Error log - should be very few entries.
-#
+# -------------------------------ログ設定-----------------------------
+# TODO: 競技終了前にこのブロックをコメントアウトする。
+# エラーログの設定。
 log_error = /var/log/mysql/error.log
-#
-# Here you can see queries with especially long duration
-# slow_query_log		= 1
-# slow_query_log_file	= /var/log/mysql/mysql-slow.log
-# long_query_time = 2
+
+# 長い実行時間を持つクエリのロギング。
+slow_query_log = 1 # 0: ログを出さない, 1: ログを出す
+slow_query_log_file	= /var/log/mysql/mysql-slow.log
+long_query_time = 0 # この秒数以上のクエリをログに出す。0にすると全てのクエリをログに出す。
+# ----------(必要に応じてコメントアウトを外して使うログ)
+# クエリログの保存先(クエリログについては必要に応じてコメントアウトを外す)
+# general_log_file = /var/log/mysql/query.log
+# クエリログの有効化
+# general_log = 1
+# インデックスを使用しないクエリをロギング
 # log-queries-not-using-indexes
-#
-# The following can be used as easy to replay backup logs or for replication.
-# note: if you are setting up a replication slave, see README.Debian about
-#       other settings you may need to change.
-# server-id		= 1
-# log_bin			= /var/log/mysql/mysql-bin.log
-# binlog_expire_logs_seconds	= 2592000
-max_binlog_size   = 100M
-# binlog_do_db		= include_database_name
-# binlog_ignore_db	= include_database_name
+# --------------------------------------------------------------------
+
+# ------------------------------ 汎用チューニング設定 ------------------------------
+# キーバッファのサイズ。
+# MyISAMテーブルのインデックスをキャッシュするためのバッファのサイズを指定する。
+# 値の決め方: ヒット率を監視しつつ、必要に応じて増やす。
+# 注意事項: この設定はMyISAMテーブル用であり、InnoDBテーブルは影響を受けつけない。
+# デフォルト値: 8M
+key_buffer_size = 16M
+
+# 1つのクエリで送受信できる最大のデータサイズ。
+# 値の決め方: 大きなデータを扱う場合は、この値を増やす必要がある。
+# 注意事項: あまりにも大きな値を設定すると、リソースの無駄遣いの原因となる可能性がある。
+# デフォルト値: 16M
+max_allowed_packet = 64M
+
+# スレッドごとのスタックサイズ。
+# 値の決め方: デフォルトのままで大半の場面で問題ない。特定のプラグインやUDFを使用する場合に調整が必要。
+# 注意事項: 値を大きくしすぎると、メモリ使用量が増加する。
+# デフォルト値: 256K
+# thread_stack = 256K
+
+# スレッドのキャッシュサイズ。
+# 値の決め方: スレッドの作成・破棄のオーバーヘッドを減少させるため、適切なサイズを設定する。
+# 注意事項: 設定値が大きすぎると、不要なメモリの占有となる可能性がある。
+# デフォルト値: 8
+thread_cache_size = 50
+
+# 同時に接続できる最大クライアント数。
+# 値の決め方: アプリケーションの最大同時接続数に応じて調整。
+# 注意事項: 値を大きくしすぎると、サーバーのリソースを過度に消費する可能性がある。
+# デフォルト値: 151
+max_connections = 500
+
+# オープンできるテーブルの最大数。
+# 値の決め方: 開かれるテーブルの数に応じて調整。SHOW GLOBAL STATUS LIKE 'Open_tables'で現在の値を確認。
+# 注意事項: 値を大きくしすぎると、ファイルディスクリプタの制限に達する可能性がある。
+# デフォルト値: 2000
+table_open_cache = 4000
+# ------------------------------------------------------------------------------
