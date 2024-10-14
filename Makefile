@@ -6,20 +6,20 @@ DB_ROOT_USER=isuconp
 DB_ROOT_PASSWORD=isuconp
 
 RUBY_APP_FILE_NAME=app.rb
-RUBY_WORKING_PATH=/home/isucon/webapp/ruby
-ESTACKPROF_INPUT_PATH=/home/isucon/webapp/ruby/tmp/
-ESTACKPROF_OUTPUT_PATH:=/home/isucon/webapp/ruby/tmp/log_$(shell date +'%Y%m%d%H%M').txt
+RUBY_WORKING_PATH=/home/isucon/private_isu/webapp/ruby
+ESTACKPROF_INPUT_PATH=/home/isucon/private_isu/webapp/ruby/tmp/
+ESTACKPROF_OUTPUT_PATH:=/home/isucon/private_isu/webapp/ruby/tmp/log_$(shell date +'%Y%m%d%H%M').txt
 
 ACCESS_LOG=/var/log/nginx/access.log
 
 MYSQL_SLOW_QUERY_LOG=/var/log/mysql/mysql-slow.log
 MYSQL_ERROR_LOG=/var/log/mysql/error.log
-SLOW_QUERY_DUMP_OUTPUT_PATH:=/home/isucon/log/slow_query/slow_query_log_$(shell date +'%Y%m%d%H%M').txt
+SLOW_QUERY_DUMP_OUTPUT_PATH:=/home/isucon/private_isu/log/slow_query/slow_query_log_$(shell date +'%Y%m%d%H%M').txt
 
-ALP_CONFIG_PATH=/home/isucon/webapp/alp_config.yml
-ALP_OUTPUT_PATH:=/home/isucon/log/alp/alp_log_$(shell date +'%Y%m%d%H%M').txt
+ALP_CONFIG_PATH=/home/isucon/private_isu/alp_config.yml
+ALP_OUTPUT_PATH:=/home/isucon/private_isu/log/alp/alp_log_$(shell date +'%Y%m%d%H%M').txt
 
-ALL_SAVE_LOGS_PATH=/home/isucon/webapp/all_logs
+ALL_SAVE_LOGS_PATH=/home/isucon/private_isu/webapp/all_logs
 
 # 元からあった設定----------------------
 .PHONY: init
