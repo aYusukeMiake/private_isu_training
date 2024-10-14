@@ -147,17 +147,20 @@ check-query-digester:
 check-estackprof-list:
 	cd ${RUBY_WORKING_PATH} && \
 	bundle exec estackprof list -f ${RUBY_APP_FILE_NAME} > ${ESTACKPROF_OUTPUT_PATH}
+	echo "出力先: ${ESTACKPROF_OUTPUT_PATH}"
 
 .PHONY: check-estackprof-top
 check-estackprof-top:
 	cd ${RUBY_WORKING_PATH} && \
 	bundle exec estackprof top -p ${RUBY_APP_FILE_NAME} > ${ESTACKPROF_OUTPUT_PATH}
+	echo "出力先: ${ESTACKPROF_OUTPUT_PATH}"
 
 .PHONY: check-estackprof-function
 check-estackprof-function:
 	@echo "引数として関数名を渡す(例: make check-estackprof-function ARG_FUNCTION=method_name)"
 	cd ${RUBY_WORKING_PATH} && \
 	bundle exec estackprof top -p ${ARG_FUNCTION} > ${ESTACKPROF_OUTPUT_PATH}
+	echo "出力先: ${ESTACKPROF_OUTPUT_PATH}"
 
 .PHONY: check-slow-query-log
 check-slow-query-log:
