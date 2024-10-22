@@ -1,0 +1,2 @@
+-- 必要に応じてコメントアウトを外す
+-- ALTER TABLE comments ADD INDEX idx_post_id (post_id);
