@@ -1,3 +1,4 @@
 -- 必要に応じてコメントアウトを外す
 -- ALTER TABLE comments ADD INDEX idx_post_id (post_id);
 -- ALTER TABLE posts ADD INDEX posts_order_idx (created_at DESC);
+-- ALTER TABLE `comments` ADD INDEX `idx_user_id` (`user_id`);
