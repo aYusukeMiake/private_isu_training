@@ -37,14 +37,14 @@ disable-log-bin
 log_error = /var/log/mysql/error.log
 
 # 長い実行時間を持つクエリのロギング。
-slow_query_log = 1 # 0: ログを出さない, 1: ログを出す
+slow_query_log = 0 # 0: ログを出さない, 1: ログを出す
 slow_query_log_file	= /var/log/mysql/mysql-slow.log
 long_query_time = 0 # この秒数以上のクエリをログに出す。0にすると全てのクエリをログに出す。
 # ----------(必要に応じてコメントアウトを外して使うログ)
 # クエリログの保存先(クエリログについては必要に応じてコメントアウトを外す)
 # general_log_file = /var/log/mysql/query.log
 # クエリログの有効化
-# general_log = 1
+# general_log = 0
 # インデックスを使用しないクエリをロギング
 # log-queries-not-using-indexes
 # --------------------------------------------------------------------
