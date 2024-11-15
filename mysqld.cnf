@@ -110,7 +110,7 @@ innodb_log_file_size = 16M
 # 値の決め方: パフォーマンスとデータの耐久性のトレードオフを考慮。
 # 注意事項: 値2は、OSのキャッシュにログを保持し、電源喪失時にデータを失うリスクがある。
 # デフォルト値: 1
-innodb_flush_log_at_trx_commit = 0
+innodb_flush_log_at_trx_commit = 2
 
 # InnoDBのディスク書き込み方法。
 # 値の決め方: ハードウェアやストレージの特性に応じて。
